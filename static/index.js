@@ -2,20 +2,37 @@ console.log("hi");
 
 let count=1;
 let img_url="";
+let img_file=null;
 const message_button=document.getElementById("message_button");
 const input_message=document.getElementById("input_message");
 const input_img=document.getElementById("input_img");
 const message_board=document.getElementById("message_board");
 
+function init(){
+    import("./message_module.js").then(func=>{
+        func.get_message().then(result=>{
+            console.log(result);
+        });
+    })
+}
+
 message_button.addEventListener("click", ()=>{
     if (input_message.value=="" && input_img.value=="") return;
-    create_message_div(input_message.value, count);
-    clean_input();
+    create_message_div(input_message.value, count); 
+    import("./message_module.js").then(func=>{
+        func.send_message(img_file).then(result=>{
+            console.log(result);
+        }).then(()=>{
+            clean_input();
+        });
+    })
     count++;
 })
 
 input_img.addEventListener("change", function(e){
     if(e.target.files.length==0) return;
+    // console.log(e.target.files[0]);
+    img_file=e.target.files[0];
     const reader=new FileReader();
     reader.addEventListener("load", ()=>{
         img_url=reader.result;
@@ -68,4 +85,7 @@ function clean_input(){
     input_message.value="";
     input_img.value="";
     img_url="";
+    img_file=null;
 }
+
+init();
