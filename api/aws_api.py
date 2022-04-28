@@ -15,18 +15,30 @@ class Aws_s3_api():
             aws_secret_access_key=dotenv_values(env)["secret_access_key"],
         )
         self.bucket="yin-storage"
-    def get_data(self):
-        img=self.aws_client.get_object(Bucket=self.bucket, Key='_user.png')
-        print(img)
-        return
-    def upload_data(self, file):
+    def get_data_url(self):
+        img_url=self.aws_client.generate_presigned_url(
+            "get_object",
+            Params={"Bucket":self.bucket, "Key":"user2.png"},
+            ExpiresIn=6000
+        )
+        return img_url
+    def upload_data(self, file, type, index):
+        img_type='image/'+type
+        filename='user'+str(index)+"."+type
         self.aws_client.put_object(Body=file, 
                                    Bucket=self.bucket, 
-                                   Key='user.png',
-                                   ContentType='image/jpeg'
+                                   Key=filename,
+                                   ContentType=img_type
                                    )
-        return 0
+        return filename
     def delete_data(self):
-        self.aws_client.delete_object(Bucket=self.bucket, Key='test/test.txt')
+        self.aws_client.delete_object(Bucket=self.bucket, Key='test.txt')
+        return 0
+    def delete_all_data(self):
+        resp=self.aws_client.list_objects(Bucket=self.bucket)
+        for index in resp["Contents"]:
+            self.aws_client.delete_object(Bucket=self.bucket, Key=index["Key"])
         return 0
 
+# s3=Aws_s3_api()
+# s3.get_data_url()

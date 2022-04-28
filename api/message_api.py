@@ -18,15 +18,21 @@ url="/message"
 @app1.route(url, methods=["POST"])
 def send_message():
     message=request.form.get("message")
-    img=request.files.get("img").read()
+    img=request.files.get("img")
     print(message)
-    print(type(img))
+    print(img.filename)
     s3=Aws_s3_api()
-    result=s3.upload_data(file=img)
+    result=s3.upload_data(img.read(), img.filename.split(".")[1], 2)
     print(result)
     return resp
 
 @app1.route(url, methods=["get"])
 def get_message():
-    print("hm")
-    return resp
+    history_message={
+        "text":None,
+        "img":None
+    }
+    s3=Aws_s3_api()
+    url=s3.get_data_url()
+    history_message["img"]=url
+    return history_message
