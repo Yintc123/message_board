@@ -29,10 +29,10 @@ class Handle_message_board_db():
         self.close()
         return all_message
     
-    def add_message(self, img_message, text_message):
+    def add_message(self, img_message, text_message, name):
         self.connection()
-        query_add_message="INSERT INTO history_message (img_message, text_message) VALUES(%s, %s)"
-        self.cur.execute(query_add_message, (img_message, text_message))
+        query_add_message="INSERT INTO history_message (img_message, text_message, name) VALUES(%s, %s, %s)"
+        self.cur.execute(query_add_message, (img_message, text_message, name))
         self.conn.commit()
         self.close()
         return 0 #註冊成功

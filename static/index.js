@@ -1,6 +1,5 @@
 console.log("hi");
 
-let count=1;
 let img_url="";
 let img_file=null;
 const message_button=document.getElementById("message_button");
@@ -13,21 +12,30 @@ function init(){
         func.get_message().then(result=>{
             console.log(result);
             for(let i=0;i<result["history"].length;i++){
-                create_message_div(result["history"][i]["text_message"], result["history"][i]["img_url"]);
+                create_message_div(result["history"][i]["name"],
+                                   result["history"][i]["text_message"], 
+                                   result["history"][i]["img_url"]);
             }
+        }).then(()=>{
+            loading(0);
         });
     })
 }
 
 message_button.addEventListener("click", ()=>{
-    if (input_message.value=="" && input_img.value=="") return;
-    create_message_div(input_message.value, null); 
+    const input_name=document.getElementById("input_name");
+    loading(1);
+    if (input_message.value=="" && input_img.value==""){
+        loading(0);
+        return;
+    } 
+    create_message_div(input_name.value, input_message.value, null); 
     import("./message_module.js").then(func=>{
-        func.send_message(img_file).then(()=>{
-            clean_input();
-        });
+        func.send_message(input_name.value, input_message.value, img_file);
+        clean_input();
+    }).then(()=>{
+        loading(0);
     })
-    count++;
 })
 
 input_img.addEventListener("change", function(e){
@@ -41,11 +49,12 @@ input_img.addEventListener("change", function(e){
     reader.readAsDataURL(this.files[0])
 })
 
-function create_message_div(message, img){
+function create_message_div(name, message, img){
     reorder_div_message();
     const div_message=document.createElement("div");
     const hr=document.createElement("hr");
     const client=[];
+    client.push(create_client_name(name));
     client.push(create_client_message(message));
     if (img){
         client.push(create_client_img(img));
@@ -71,6 +80,16 @@ function create_client_message(message){
     return client_message;
 }
 
+function create_client_name(name){
+    if(name=="" || name==null){
+        name="匿名";
+    }
+    const client_name=document.createElement("p");
+    client_name.className="client_name";
+    client_name.textContent=name + " 說：";
+    return client_name;
+}
+
 function create_client_img(img){
     if(img==null || img=="")return;
     const client_img=document.createElement("img");
@@ -91,6 +110,15 @@ function clean_input(){
     input_img.value="";
     img_url="";
     img_file=null;
+}
+
+function loading(flag){
+    const loading_for_confirmation=document.getElementById("loading_for_confirmation");
+    if(flag==0){
+        loading_for_confirmation.style.display="none";
+    }else{
+        loading_for_confirmation.style.display="inline-block";
+    }
 }
 
 init();

@@ -2,13 +2,10 @@ import {url_mode} from './package.js';
 
 const url=url_mode["url_api_message"];
 
-export async function send_message(img){
-    const input_message=document.getElementById("input_message").value;
-    console.log(input_message)
-    console.log(img)
+export async function send_message(name, text, img){
     let form=new FormData();
-    const input=[input_message, img];
-    const query=["message", "img"];
+    const input=[name, text, img];
+    const query=["name", "message", "img"];
     for(let i=0;i<input.length;i++){
         form.append(query[i], input[i]);
     }

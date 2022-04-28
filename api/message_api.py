@@ -19,6 +19,7 @@ url="/message"
 @app1.route(url, methods=["POST"])
 def send_message():
     message=request.form.get("message")
+    name=request.form.get("name")
     img=request.files.get("img")
     img_url=None
     message_db=db()
@@ -26,7 +27,7 @@ def send_message():
     s3=Aws_s3_api()
     if img:
         img_url=s3.upload_data(img.read(), img.filename.split(".")[1], message_id)
-    result=message_db.add_message(img_url, message)
+    result=message_db.add_message(img_url, message, name)
     if result!=0:
         return error
     return resp
@@ -44,5 +45,6 @@ def get_message():
             img_url=s3.get_data_url(index["img_message"])
         message["text_message"]=index["text_message"]
         message["img_url"]=img_url
+        message["name"]=index["name"]
         resp["history"].append(message)
     return resp
