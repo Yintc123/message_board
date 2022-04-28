@@ -1,7 +1,6 @@
 with open('.env', mode='w', encoding='utf-8') as file:
     file.write("# mode\nMODE='production'\n\n")
-    file.write("# tappay\ntappay_url='https://sandbox.tappaysdk.com/tpc/payment/pay-by-prime'\ntappay_partnerKey='partner_B1hrqhVq81G0pohSzqIlpyaRWtqRV5eWjNcBjpoXVmrJkBfrdo1pnv5k'\ntappay_merchantId='yin123_CTBC'\n\n")
-    file.write("# jwt_key\nbooking_key='secret_key_for_booking'\nuser_key='secret_key_for_user'\n")
+    file.write("# aws\naccess_key='AKIAW27V5MCNSDJ6JHUS'\nsecret_access_key='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'\n")
     
 with open('.env.develop', mode='w', encoding='utf-8') as file:
     file.write("# app\napp_host='127.0.0.1'\n\n")
