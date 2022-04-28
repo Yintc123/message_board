@@ -15,16 +15,18 @@ class Aws_s3_api():
             aws_secret_access_key=dotenv_values(env)["secret_access_key"],
         )
         self.bucket="yin-storage"
-    def get_data_url(self):
+        
+    def get_data_url(self, img):
         img_url=self.aws_client.generate_presigned_url(
             "get_object",
-            Params={"Bucket":self.bucket, "Key":"user2.png"},
+            Params={"Bucket":self.bucket, "Key":img},
             ExpiresIn=6000
         )
         return img_url
+    
     def upload_data(self, file, type, index):
         img_type='image/'+type
-        filename='user'+str(index)+"."+type
+        filename='img'+str(index)+"."+type
         self.aws_client.put_object(Body=file, 
                                    Bucket=self.bucket, 
                                    Key=filename,

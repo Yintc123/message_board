@@ -12,17 +12,18 @@ function init(){
     import("./message_module.js").then(func=>{
         func.get_message().then(result=>{
             console.log(result);
+            for(let i=0;i<result["history"].length;i++){
+                create_message_div(result["history"][i]["text_message"], result["history"][i]["img_url"]);
+            }
         });
     })
 }
 
 message_button.addEventListener("click", ()=>{
     if (input_message.value=="" && input_img.value=="") return;
-    create_message_div(input_message.value, count); 
+    create_message_div(input_message.value, null); 
     import("./message_module.js").then(func=>{
-        func.send_message(img_file).then(result=>{
-            console.log(result);
-        }).then(()=>{
+        func.send_message(img_file).then(()=>{
             clean_input();
         });
     })
@@ -40,13 +41,17 @@ input_img.addEventListener("change", function(e){
     reader.readAsDataURL(this.files[0])
 })
 
-function create_message_div(message){
+function create_message_div(message, img){
     reorder_div_message();
     const div_message=document.createElement("div");
     const hr=document.createElement("hr");
     const client=[];
     client.push(create_client_message(message));
-    client.push(create_client_img(img_url));
+    if (img){
+        client.push(create_client_img(img));
+    }else{
+        client.push(create_client_img(img_url));
+    }
     client.push(hr);
     div_message.className="div_message";
     for (let i=0;i<client.length;i++){
