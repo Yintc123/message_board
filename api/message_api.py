@@ -1,3 +1,4 @@
+import datetime, time
 from flask import *
 from dotenv import load_dotenv, dotenv_values
 from .aws_api import Aws_s3_api
@@ -18,18 +19,22 @@ app1=Blueprint("message_api", __name__)
 url="/message"
 @app1.route(url, methods=["POST"])
 def send_message():
+    resp={"id":None}
     message=request.form.get("message")
     name=request.form.get("name")
     img=request.files.get("img")
     img_url=None
     message_db=db()
-    message_id=message_db.get_message_id()
+    timeString = datetime.datetime.now().strftime("%Y_%m_%d_%H_%M")
     s3=Aws_s3_api()
     if img:
-        img_url=s3.upload_data(img.read(), img.filename.split(".")[1], message_id)
+        # 圖片以時間命名，由於時間不會重複，以免使用cdn系統抓到同名但內容的圖片
+        img_url=s3.upload_data(img.read(), img.filename.split(".")[1], timeString)
     result=message_db.add_message(img_url, message, name)
+    message_id=message_db.get_message_id()
     if result!=0:
         return error
+    resp["id"]=message_id
     return resp
 
 @app1.route(url, methods=["get"])
@@ -52,7 +57,7 @@ def get_message():
 @app1.route(url, methods=["DELETE"])
 def delete_message():
     message_id=request.form.get("id")
-    print(message_id)
+    # print(message_id)
     message_db=db()
     message_db.delete_message_by_id(message_id)
     return resp

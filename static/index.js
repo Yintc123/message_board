@@ -3,6 +3,7 @@ console.log("hi");
 let img_url="";
 let img_file=null;
 let flag=0;
+let data=[];
 const message_button=document.getElementById("message_button");
 const input_message=document.getElementById("input_message");
 const input_img=document.getElementById("input_img");
@@ -17,19 +18,12 @@ function init(){
                                    result["history"][i]["img_url"],
                                    flag
                                    );
+                waiting(flag);
                 flag++;
             }
-            return result["history"]
-        }).then((result)=>{
-            const can=document.getElementsByClassName("can");
-            const div_message=document.getElementsByClassName("div_message");
-            for(let i=0;i<can.length;i++){
-                can[i].addEventListener("click", (e)=>{
-                    const id=e.target.id.split("can")[1];
-                    func.delete_message(result[i]["id"]);
-                    remove_message_div(id);
-                })
-            }   
+            data=result["history"];
+            return result["history"];
+        }).then(()=>{   
             loading(0);
         });
     })
@@ -45,7 +39,11 @@ message_button.addEventListener("click", ()=>{
     create_message_div(input_name.value, input_message.value, null, flag);
     flag++; 
     import("./message_module.js").then(func=>{
-        func.send_message(input_name.value, input_message.value, img_file);
+        func.send_message(input_name.value, input_message.value, img_file).then(result=>{
+            data.push(result);
+        }).then(()=>{
+            waiting(flag-1);
+        });
         clean_input();
     }).then(()=>{
         loading(0);
@@ -121,6 +119,22 @@ function create_delete_img(index){
     delete_img.className="can";
     delete_img.id="can"+index;
     delete_img.src="./static/icon_delete.png";
+    delete_img.style.cursor="not-allowed";
+    delete_img.addEventListener("click", ()=>{
+        loading(1);
+        if (delete_img.style.cursor=="not-allowed"){
+            console.log("等待資料傳送至資料庫");
+            loading(0);
+            return;
+        }
+        import('./message_module.js').then(func=>{
+            const id=index;
+            func.delete_message(data[index]["id"]);
+            remove_message_div(id);
+        }).then(()=>{
+            loading(0);
+        })
+    })
     delete_div.appendChild(delete_img);
     return delete_div;
 }
@@ -146,13 +160,19 @@ function clean_input(){
     img_file=null;
 }
 
-function loading(flag){
+function loading(loading_flag){
     const loading_for_confirmation=document.getElementById("loading_for_confirmation");
-    if(flag==0){
+    if(loading_flag==0){
         loading_for_confirmation.style.display="none";
     }else{
         loading_for_confirmation.style.display="inline-block";
     }
+}
+
+function waiting(can_index){
+    const can_name="can"+can_index
+    const can=document.getElementById(can_name);
+    can.style.cursor="pointer";
 }
 
 init();

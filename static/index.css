@@ -1,6 +1,7 @@
 body{
     padding:0px 10px;
     position:relative;
+    min-height:99vh;
 }
 #background{
     position:absolute;
@@ -49,9 +50,7 @@ hr{
 }
 .can{
     margin:10px;
-}
-.can:hover{
-    cursor:pointer;
+    cursor:not-allowed;
 }
 input{
     margin:0px 10px 5px 10px;

@@ -43,8 +43,8 @@ class Handle_message_board_db():
         self.cur.execute(query_total)
         message_id=self.cur.fetchone()
         if message_id==None:
-            return 1
-        message_id["id"]+=1
+            self.close()
+            return 0
         self.close()
         return message_id["id"]
     
