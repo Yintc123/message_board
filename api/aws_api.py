@@ -14,7 +14,7 @@ class Aws_s3_api():
             aws_access_key_id=dotenv_values(env)["access_key"],
             aws_secret_access_key=dotenv_values(env)["secret_access_key"],
         )
-        self.bucket="yin-storage"
+        self.bucket="message-board-yin"
         
     def get_data_url(self, img):
         img_url=self.aws_client.generate_presigned_url(
@@ -41,6 +41,3 @@ class Aws_s3_api():
         for index in resp["Contents"]:
             self.aws_client.delete_object(Bucket=self.bucket, Key=index["Key"])
         return 0
-
-# s3=Aws_s3_api()
-# s3.get_data_url()
