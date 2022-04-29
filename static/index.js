@@ -86,7 +86,7 @@ function create_client_name(name){
     }
     const client_name=document.createElement("p");
     client_name.className="client_name";
-    client_name.textContent=name + " 說：";
+    client_name.textContent=name + "：";
     return client_name;
 }
 
