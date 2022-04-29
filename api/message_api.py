@@ -34,7 +34,6 @@ def send_message():
 
 @app1.route(url, methods=["get"])
 def get_message():
-    s3=Aws_s3_api()
     message_db=db()
     history_message=message_db.get_message()
     resp={"history":[]}
@@ -42,9 +41,18 @@ def get_message():
         message={}
         img_url=None
         if index["img_message"]:
-            img_url=s3.get_data_url(index["img_message"])
+            img_url=dotenv_values(env)["url_cdn"]+index["img_message"]
         message["text_message"]=index["text_message"]
         message["img_url"]=img_url
         message["name"]=index["name"]
+        message["id"]=index["id"]
         resp["history"].append(message)
+    return resp
+
+@app1.route(url, methods=["DELETE"])
+def delete_message():
+    message_id=request.form.get("id")
+    print(message_id)
+    message_db=db()
+    message_db.delete_message_by_id(message_id)
     return resp

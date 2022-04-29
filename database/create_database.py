@@ -22,8 +22,9 @@ mycursor=mydb.cursor()
 
 # mycursor.execute("ALTER TABLE history_message ADD name VARCHAR(255) NOT NULL")
 
-# query="DESCRIBE history_message"
+# query="SELECT*FROM history_message"
 # mycursor.execute(query)
+# result=mycursor.fetchall()
 
-# for x in mycursor:
+# for x in result:
 #     print(x)

@@ -14,10 +14,10 @@ body{
     opacity:0.1;
 }
 hr{
-    margin:30px 0px;
+    margin:20px 0px;
 }
 #message_board{
-    margin-top:30px;
+    margin-top:0px;
     display:flex;
     flex-wrap:wrap;
     /* border:1px solid; */
@@ -27,6 +27,10 @@ hr{
     width:100%;
     color:blue;
     font-weight: 700;
+    position:relative;
+}
+.client_name{
+    margin:10px 0px;
 }
 .client_message{
     /* border:1px solid; */
@@ -35,6 +39,19 @@ hr{
 }
 .client_img{
     max-width:300px;
+}
+.can_div{
+    position:absolute;
+    right:0px;
+    /* border: 1px solid; */
+    top:50%;
+    transform:translate(-50%, -50%);
+}
+.can{
+    margin:10px;
+}
+.can:hover{
+    cursor:pointer;
 }
 input{
     margin:0px 10px 5px 10px;
@@ -51,6 +68,8 @@ input{
 #message_button:hover{
     cursor:pointer;
 }
+
+
 
 /* loading */
 .lds-ripple {

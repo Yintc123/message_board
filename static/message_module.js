@@ -22,3 +22,16 @@ export async function get_message(){
         return response.json();
     })
 }
+
+export async function delete_message(message_id){
+    let form=new FormData();
+    const id=message_id;
+    const query="id";
+    form.append(query, id);
+    return await fetch(url, {
+        method:"DELETE",
+        body:form
+    }).then(response=>{
+        return response.json();
+    })
+}

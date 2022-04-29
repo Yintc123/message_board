@@ -47,3 +47,11 @@ class Handle_message_board_db():
         message_id["id"]+=1
         self.close()
         return message_id["id"]
+    
+    def delete_message_by_id(self, id):
+        self.connection()
+        query_delete="DELETE FROM history_message WHERE id=%s"
+        self.cur.execute(query_delete %id)
+        self.conn.commit()
+        self.close()
+        return 0 #刪除成功
