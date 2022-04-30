@@ -8,9 +8,9 @@ pool=MySQLConnectionPool(
     host=dotenv_values(env)["RDS_host"],
     user=dotenv_values(env)["user"],
     password=dotenv_values(env)["password"],
-    database="test",
+    database="message_board",
     pool_name="myPool",
-    pool_size=5,
+    pool_size=10,
     auth_plugin="mysql_native_password",
     port=dotenv_values(env)["port"]
 )

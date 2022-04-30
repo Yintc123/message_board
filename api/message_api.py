@@ -1,3 +1,4 @@
+import base64
 import datetime, time
 from flask import *
 from dotenv import load_dotenv, dotenv_values
@@ -23,17 +24,21 @@ def send_message():
     message=request.form.get("message")
     name=request.form.get("name")
     img=request.files.get("img")
-    img_url=None
+    img_file=None
+    img_filename=None
     message_db=db()
-    timeString = datetime.datetime.now().strftime("%Y_%m_%d_%H_%M")
-    s3=Aws_s3_api()
     if img:
-        # 圖片以時間命名，由於時間不會重複，以免使用cdn系統抓到同名但內容的圖片
-        img_url=s3.upload_data(img.read(), img.filename.split(".")[1], timeString)
-    result=message_db.add_message(img_url, message, name)
+        img_file=img.read()
+        img_format=img.filename.split(".")[1]
+        previous_img=message_db.find_img(base64.b64encode(img_file).decode("utf-8"))
+        if not previous_img:
+            s3=Aws_s3_api()
+            # 由於時間不會重複，圖片以時間命名，以免使用cdn系統抓到同名但內容的圖片
+            timeString = datetime.datetime.now().strftime("%Y_%m_%d_%H_%M")
+            img_filename=s3.upload_data(img_file, img_format, timeString)
+        img_file=base64.b64encode(img_file).decode("utf-8") # 將Blob以base64轉成text檔以利存檔於mysql
+    message_db.add_message(img_filename, img_file, message, name)
     message_id=message_db.get_message_id()
-    if result!=0:
-        return error
     resp["id"]=message_id
     return resp
 
@@ -45,8 +50,9 @@ def get_message():
     for index in history_message:
         message={}
         img_url=None
-        if index["img_message"]:
-            img_url=dotenv_values(env)["url_cdn"]+index["img_message"]
+        if index["img_id"] != 0:
+            img_filename=message_db.find_img_by_id(index["img_id"])["img_name"]
+            img_url=dotenv_values(env)["url_cdn"]+img_filename
         message["text_message"]=index["text_message"]
         message["img_url"]=img_url
         message["name"]=index["name"]

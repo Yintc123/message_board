@@ -18,7 +18,7 @@ function init(){
                                    result["history"][i]["img_url"],
                                    flag
                                    );
-                waiting(flag);
+                wait_for_message_upload(flag);
                 flag++;
             }
             data=result["history"];
@@ -31,8 +31,10 @@ function init(){
 
 message_button.addEventListener("click", ()=>{
     const input_name=document.getElementById("input_name");
+    button_disabled(1);
     loading(1);
     if (input_message.value=="" && input_img.value==""){
+        button_disabled(0);
         loading(0);
         return;
     } 
@@ -42,7 +44,8 @@ message_button.addEventListener("click", ()=>{
         func.send_message(input_name.value, input_message.value, img_file).then(result=>{
             data.push(result);
         }).then(()=>{
-            waiting(flag-1);
+            wait_for_message_upload(flag-1);
+            button_disabled(0);
         });
         clean_input();
     }).then(()=>{
@@ -169,10 +172,26 @@ function loading(loading_flag){
     }
 }
 
-function waiting(can_index){
+function wait_for_message_upload(can_index){
     const can_name="can"+can_index
     const can=document.getElementById(can_name);
     can.style.cursor="pointer";
+}
+
+function button_disabled(upload_flag){
+    const button_text=document.getElementById("button_text");
+    const lds_ellipsis=document.getElementById("lds-ellipsis");
+    if(upload_flag==1){
+        message_button.disabled=true;
+        message_button.style.cursor="not-allowed";
+        button_text.style.display="none";
+        lds_ellipsis.style.display="inline-block";
+    }else{
+        message_button.disabled=false;
+        message_button.style.cursor="pointer";
+        button_text.style.display="block";
+        lds_ellipsis.style.display="none";
+    }
 }
 
 init();

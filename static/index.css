@@ -63,6 +63,9 @@ input{
     border-radius: 5px;
     font-size: 14px;
     font-weight: 700;
+    width:100px;
+    height:30px;
+    position:relative;
 }
 #message_button:hover{
     cursor:pointer;
@@ -113,3 +116,62 @@ input{
       display:block;
   }
   
+  /* loading */
+.lds-ellipsis {
+    /* display: inline-block; */
+    position: absolute;
+    top:39.8%;
+    left:15%;
+    transform:translate(-50%, -50%);
+    display:none;
+    /* display:inline-block; */
+  }
+  .lds-ellipsis div {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    /* background: #000; */
+    background: white;
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+  }
+  .lds-ellipsis div:nth-child(1) {
+    left: 8px;
+    animation: lds-ellipsis1 0.6s infinite;
+  }
+  .lds-ellipsis div:nth-child(2) {
+    left: 8px;
+    animation: lds-ellipsis2 0.6s infinite;
+  }
+  .lds-ellipsis div:nth-child(3) {
+    left: 32px;
+    animation: lds-ellipsis2 0.6s infinite;
+  }
+  .lds-ellipsis div:nth-child(4) {
+    left: 56px;
+    animation: lds-ellipsis3 0.6s infinite;
+  }
+  @keyframes lds-ellipsis1 {
+    0% {
+      transform: scale(0);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  @keyframes lds-ellipsis3 {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(0);
+    }
+  }
+  @keyframes lds-ellipsis2 {
+    0% {
+      transform: translate(0, 0);
+    }
+    100% {
+      transform: translate(24px, 0);
+    }
+  }
