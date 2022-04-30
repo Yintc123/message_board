@@ -88,4 +88,4 @@ class Handle_message_board_db():
         self.cur.execute(query_img %img_id)
         img=self.cur.fetchone()
         self.close()
-        return img
+        return img["img_name"]
