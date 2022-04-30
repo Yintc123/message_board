@@ -84,7 +84,7 @@ class Handle_message_board_db():
 
     def find_img_by_id(self, img_id):
         self.connection()
-        query_img="SELECT*FROM history_img WHERE id=%s"
+        query_img="SELECT img_name FROM history_img WHERE id=%s"
         self.cur.execute(query_img %img_id)
         img=self.cur.fetchone()
         self.close()

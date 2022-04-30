@@ -51,7 +51,7 @@ def get_message():
         message={}
         img_url=None
         if index["img_id"] != 0:
-            img_filename=message_db.find_img_by_id(index["img_id"])["img_name"]
+            img_filename=message_db.find_img_by_id(index["img_id"])
             img_url=dotenv_values(env)["url_cdn"]+img_filename
         message["text_message"]=index["text_message"]
         message["img_url"]=img_url
