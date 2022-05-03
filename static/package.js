@@ -1,3 +1,6 @@
+const aws_url="3.115.234.130";
+const aws_url2="172.31.14.238";
+
 const url={
     "develop":{
         "url_api_message":"http://127.0.0.1:4000/api/message"
@@ -7,8 +10,7 @@ const url={
     }
 }
 
-const aws_url="3.115.234.130";
-const aws_url2="172.31.14.238";
+
 
 // const env="develop";
 const env="production";
