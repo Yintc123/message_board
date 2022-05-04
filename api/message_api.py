@@ -4,6 +4,7 @@ from flask import *
 from dotenv import load_dotenv, dotenv_values
 from .aws_api import Aws_s3_api
 from database.message_board_db import Handle_message_board_db as db
+from flask_cors import CORS
 
 env=".env" # 執行環境
 load_dotenv(override=True)
@@ -16,6 +17,7 @@ error={
 resp={"ok":True}
 
 app1=Blueprint("message_api", __name__)
+CORS(app1)
 
 url="/message"
 @app1.route(url, methods=["POST"])
