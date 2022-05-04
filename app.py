@@ -18,4 +18,4 @@ def index():
 app.register_blueprint(app1, url_prefix="/api")
 
 app.debug=True
-app.run(host=dotenv_values(env)["app_host"], port=4000, ssl_context=("/etc/ssl/mb_certificate.crt", "/etc/ssl/private.key"))
+app.run(host=dotenv_values(env)["app_host"], port=4000, ssl_context=("/etc/ssl/mb_certificate.crt", "/etc/ssl/mb_private.key"))
