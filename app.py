@@ -16,7 +16,7 @@ def index():
     return render_template("index.html")
 @app.route("/loaderio-3db4d2725fc46d2430ffcff6bff5c824/")
 def loader_io():
-    return "loaderio-3db4d2725fc46d2430ffcff6bff5c824.txt"
+    return "loaderio-3db4d2725fc46d2430ffcff6bff5c824"
 
 app.register_blueprint(app1, url_prefix="/api")
 
