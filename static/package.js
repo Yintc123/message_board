@@ -1,9 +1,12 @@
+const dn="message-board.yin888.info";
+const ip="3.115.234.130:4000";
+
 const url={
     "develop":{
         "url_api_message":"http://127.0.0.1:4000/api/message"
     },
     "production":{
-        "url_api_message":"http://3.115.234.130:4000/api/message"
+        "url_api_message":"http://"+dn+"/api/message"
     }
 }
 
