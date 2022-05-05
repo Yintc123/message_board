@@ -1,6 +1,6 @@
 const dn="message-board.yin888.info";
 const ip="3.115.234.130:4000";
-const lb="loadtestALB-817074138.ap-northeast-1.elb.amazonaws.com";
+const lb="message-board.yin888.info1";
 
 const url={
     "develop":{
