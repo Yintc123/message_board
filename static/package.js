@@ -1,6 +1,6 @@
 const dn="message-board.yin888.info";
 const ip="3.115.234.130:4000";
-const lb="message-board.yin888.info1";
+const lb="message-board1.yin888.info";
 
 const url={
     "develop":{
