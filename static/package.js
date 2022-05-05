@@ -7,7 +7,7 @@ const url={
         "url_api_message":"http://127.0.0.1:4000/api/message"
     },
     "production":{
-        "url_api_message":"https://"+lb+"/api/message"
+        "url_api_message":"https://"+dn+"/api/message"
     }
 }
 
