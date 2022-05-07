@@ -1,5 +1,5 @@
 # init a base image (Alpine is small Linux distro)
-FROM python:3.10-slim
+FROM python:3.9-slim
 # define the present working directory
 WORKDIR /message_board
 # copy the contents into the working dir
