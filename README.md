@@ -36,6 +36,7 @@ https://message-board.yin888.info/
     *   mysql.connector.pooling
     <br/>使用連線池，有效利用資料庫資源。
 *   JavaScript
+    <br/>網頁程式撰寫， DOM 控制。
 *   Others
     *   Docker
     <br/>輕量級的虛擬化技術，跨平台部屬專案。
