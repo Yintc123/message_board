@@ -16,7 +16,7 @@ https://message-board.yin888.info/
     *   刪除留言
 
 ## 網頁架構
-![pic_web_framework](readme_pictures/web_framework.png)
+![pic_web_framework](readme_pictures/mb_web_framework.png)
 
 ## 使用工具
 *   AWS
