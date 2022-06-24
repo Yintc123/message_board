@@ -28,6 +28,10 @@ https://message-board.yin888.info/
     <br/>雲端物件儲存，用於儲存留言圖片，避免浪費資料庫資源。
     *   CloudFront
     <br/>低延遲內容交付網路 ( CDN ) ，將資料儲存至全球各地的多個伺服器節點。
+    *   Amazon Machine Image ( AMI )
+    <br/>AWS 提供技術支援並維護的映像，此專案用於複製 EC2 作為 Load Balancer導流的對象。
+    *   Application Load Balancer
+    <br/>適合處理 HTTP 與 HTTPS 流量的負載平衡，分散流量減輕 EC2 負擔。
 *   Python
     *   flask
     <br/>開發網頁應用框架。
