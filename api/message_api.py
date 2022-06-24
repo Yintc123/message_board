@@ -36,7 +36,7 @@ def send_message():
         if not previous_img:
             s3=Aws_s3_api()
             # 由於時間不會重複，圖片以時間命名，以免使用cdn系統抓到同名但內容的圖片
-            timeString = datetime.datetime.now().strftime("%Y_%m_%d_%H_%M")
+            timeString = datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
             img_filename=s3.upload_data(img_file, img_format, timeString)
         img_file=base64.b64encode(img_file).decode("utf-8") # 將Blob以base64轉成text檔以利存檔於mysql
     message_db.add_message(img_filename, img_file, message, name)

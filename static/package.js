@@ -11,8 +11,8 @@ const url={
 }
 
 
-// const env="develop";
-const env="production";
+const env="develop";
+// const env="production";
 export const url_mode=url[env];
 
 export default url_mode;
