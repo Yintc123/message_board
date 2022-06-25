@@ -39,6 +39,9 @@ https://message-board.yin888.info/
     <br/>取用.env的資訊，避免洩漏私密資訊。
     *   mysql.connector.pooling
     <br/>使用連線池，有效利用資料庫資源。
+    *   boto3
+    <br/>AWS 開發套件，上傳資料至 AWS S3 。
+
 *   JavaScript
     <br/>網頁程式撰寫， DOM 控制。
 *   Others
