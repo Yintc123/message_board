@@ -61,4 +61,4 @@ https://message-board.yin888.info/
     <br/>刪除留言區塊後，留言區塊的索引 ( index ) 會變動，故不能依index刪除留言區塊。
     <br/><img src="readme_pictures/example1.png" width="500px">
     * 解決方案：
-    <br/>留言板區塊設定無重複的id，利用id刪除特定留言區塊。
+    <br/>留言塊設定無重複的id，利用id刪除特定留言區塊。
