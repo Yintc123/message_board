@@ -10,16 +10,18 @@ class Handle_message_board_db():
             self.conn=pool.pool.get_connection()
             self.cur=self.conn.cursor(dictionary=True)
             print("successful access to the connection")
-        except:
+        except Exception as e:
             print("error in the connection")
+            return e
             
     def close(self):
         try:
             self.cur.close()#cursor.close()釋放從資料庫取得的資源，兩個皆須關閉
             self.conn.close()#connection.close()方法可關閉對連線池的連線，並釋放相關資源
             print("close the connection successfully")
-        except:
+        except Exception as e:
             print("error in closing the connection")
+            return e
             
     def get_message(self):
         try:
@@ -29,9 +31,9 @@ class Handle_message_board_db():
             all_message=self.cur.fetchall()
             self.close()
             return all_message
-        except:
+        except Exception as e:
             self.close()
-            return 0
+            return e
 
     def add_img(self, img_name, img_b64):
         try:
@@ -46,9 +48,9 @@ class Handle_message_board_db():
             self.conn.commit()
             self.close()
             return 2 #圖片加入成功
-        except:
+        except Exception as e:
             self.close()
-            return 3
+            return e
     
     def add_message(self, img_filename, img_b64, text_message, name):
         try:
@@ -63,9 +65,9 @@ class Handle_message_board_db():
             self.conn.commit()
             self.close()
             return 0 #訊息加入成功
-        except:
+        except Exception as e:
             self.close()
-            return 1
+            return e
     
     def get_message_id(self):
         try:
@@ -78,9 +80,9 @@ class Handle_message_board_db():
                 return 0
             self.close()
             return message_id["id"]
-        except:
+        except Exception as e:
             self.close()
-            return 1
+            return e
     
     def delete_message_by_id(self, id):
         try:
@@ -90,9 +92,9 @@ class Handle_message_board_db():
             self.conn.commit()
             self.close()
             return 0 #刪除成功
-        except:
+        except Exception as e:
             self.close()
-            return 1
+            return e
 
     def find_img(self, img_b64):
         try:
@@ -102,9 +104,9 @@ class Handle_message_board_db():
             img=self.cur.fetchone()
             self.close()
             return img
-        except:
+        except Exception as e:
             self.close()
-            return 0
+            return e
 
     def find_img_by_id(self, img_id):
         try:
@@ -114,6 +116,6 @@ class Handle_message_board_db():
             img=self.cur.fetchone()
             self.close()
             return img["img_name"]
-        except:
+        except Exception as e:
             self.close()
-            return 0
+            return e
