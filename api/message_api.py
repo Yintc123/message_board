@@ -30,6 +30,7 @@ def send_message():
     img_filename=None
     message_db=db()
     if img:
+        print("get message")
         img_file=img.read()
         img_format=img.filename.split(".")[1]
         previous_img=message_db.find_img(base64.b64encode(img_file).decode("utf-8"))
