@@ -20,5 +20,5 @@ def loader_io():
 
 app.register_blueprint(app1, url_prefix="/api")
 
-app.debug=True
-app.run(host=dotenv_values(env)["app_host"], port=4000)
+# app.debug=True
+# app.run(host=dotenv_values(env)["app_host"], port=4000)
