@@ -42,7 +42,7 @@ https://message-board.yin888.info/
     *   boto3
     <br/>AWS 開發套件，上傳資料至 AWS S3 。
     *   Gunicorn
-    <br/>WSGI，定義並處理透過 HTTP 跟 python web app 之間溝通的規範，處理 HTTP Request（字串）與 Python 可理解的 Input/Output 的中繼站（Middleware）。
+    <br/>WSGI，定義透過 HTTP 與 python web app 之間溝通的規範，處理 HTTP Request（字串）與 Python 可理解的 Input/Output 的中繼站（Middleware）。
 *   JavaScript
     <br/>網頁程式撰寫， DOM 控制。
 *   Others
