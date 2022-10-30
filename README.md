@@ -48,7 +48,7 @@ https://message-board.yin888.info/
 *   Others
     *   Docker
     <br/>輕量級的虛擬化技術，跨平台部屬專案。
-    *   nginx
+    *   Nginx
     <br/>網頁伺服器，此專案應用其反向代理 ( Reverse Proxy ) 的功能。
     *   git
     <br/>版本控管工具。
